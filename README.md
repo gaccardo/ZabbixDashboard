@@ -1,0 +1,4 @@
+ZabbixDashboard
+===============
+
+A Zabbix dashboard
