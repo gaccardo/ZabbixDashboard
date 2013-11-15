@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+
+
+{{=LOAD('zabbix', 'gauge', vars={'itemid': 23732,
+                        'max': 2100,
+                        'greenFrom': 0,
+                        'greenTo': 1599,
+                        'yellowFrom': 1600,
+                        'yellowTo': 1999,
+                        'redFrom': 2000,
+                        'redTo':2100},
+        target='graph')}}
+
+<div class="graph"></div>

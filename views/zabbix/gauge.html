@@ -1,0 +1,31 @@
+{{extend 'layout.html'}}
+
+{{ block head }}
+<script type='text/javascript'>
+	google.load('visualization', '1', {packages:['gauge']});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+			['Label', 'Value'],
+			["{{=item['name']}}", {{=item['lastvalue']}}],
+		]);
+
+		var options = {
+			width: 550, height: 400,
+			redFrom: "{{=options['redFrom']}}", redTo: "{{=options['redTo']}}",
+			yellowFrom: "{{=options['yellowFrom']}}", yellowTo: "{{=options['yellowTo']}}",
+			minorTicks: 5, duration: 1300,
+			greenFrom: "{{=options['greenFrom']}}", greenTo: "{{=options['greenTo']}}",
+			max: "{{=options['max']}}"
+		};
+
+		var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+		chart.draw(data, options);
+	}
+</script>
+
+
+<div class="gauge_box">
+ <h1>{{=item['name']}} [{{=host['name']}}]</h1>
+ <div id='chart_div'></div>
+</div>

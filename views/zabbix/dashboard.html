@@ -1,0 +1,38 @@
+{{response.menu=False}}
+{{response.logo=''}}
+{{extend 'layout.html'}}
+
+{{ block head }}
+
+	<script type='text/javascript'>
+		google.load('visualization', '1', {packages:['gauge']});
+		google.setOnLoadCallback(drawChart);
+
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable([
+				['Label', 'Value'],
+				{{for graph in graphs:}}
+					["{{=graph['name']}}", {{=graph['value']}}],
+				{{pass}}
+			]);
+
+			var options = {
+				width: 640, height: 480,
+				redFrom: {{=dashboard['redFrom']}}, redTo: {{=dashboard['redTo']}},
+				yellowFrom: {{=dashboard['yellowFrom']}}, yellowTo: {{=dashboard['yellowTo']}},
+				minorTicks: 5, duration: 1300,
+				greenFrom: {{=dashboard['greenFrom']}}, greenTo: {{=dashboard['greenTo']}},
+				max: {{=dashboard['maxNum']}}
+			};
+
+			var chart = new google.visualization.Gauge(document.getElementById("chart_div"));
+			chart.draw(data, options);
+		}
+	</script>
+
+{{ end }}
+
+<h1>{{=dashboard['name']}}</h1>
+<div class="graphbox">
+	<div id="chart_div"></div>
+</div>

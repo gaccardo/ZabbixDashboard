@@ -1,0 +1,15 @@
+{{response.menu=False}}
+{{response.logo=''}}
+{{extend 'layout.html'}}
+
+{{ block head }}
+
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			$.get("http://127.0.0.1:8000/ZabbixDashboard/zabbix/graphs_by_dashboard.json?dashid=2", function(chart_json) {
+				console.log(chart_json);
+			})
+		});
+	</script>
+
+{{ end }}

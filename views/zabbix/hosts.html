@@ -1,0 +1,25 @@
+{{response.menu=False}}
+{{response.logo=''}}
+{{extend 'layout.html'}}
+
+{{ block head }}
+
+	<script>
+		$("select").change( function() {
+			$( "select option:selected" ).each( function() {
+				alert($( this ));
+			});
+		});
+	</script>
+
+{{ end }}
+
+<select size=10 id="hosts">
+	{{for host in hosts:}}
+  	<option value="{{=host['host']['hostid']}}">{{=host['host']['name']}} {{=host['host']['host']}}</option>
+	{{pass}}
+</select>
+
+<select>
+
+</select>

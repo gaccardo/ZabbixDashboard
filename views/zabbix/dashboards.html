@@ -1,0 +1,13 @@
+{{response.menu=False}}
+{{response.logo=''}}
+{{extend 'layout.html'}}
+
+<h1> Dashboards availables </h1>
+
+<ul>
+	{{for dash in dashboards:}}
+	  <li><a href={{=URL('zabbix',
+	                     'dashboard', 
+	                     vars={'dashid': dash.id})}}>{{=dash.name}}</a></li>
+	{{pass}}
+</ul>
