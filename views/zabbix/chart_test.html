@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+
+<div id="chartContainer">Loading...</div>
+
+<script type="text/javascript">
+  var myChart = new FusionCharts( "{{=URL('static/charts', 'AngularGauge.swf')}}",
+                                   "myChartId", "400", "200", "0" );
+  myChart.setJSONUrl("{{=URL('charts', 'angular_gauge.json')}}");
+  myChart.render("chartContainer");
+</script>

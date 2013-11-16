@@ -88,14 +88,21 @@ auth.zabbix_pass = "zabbix"
 # auth.enable_record_versioning(db)
 
 db.define_table('dashboard', Field('name', 'string'),
-                             Field('maxNum', 'integer'),
-                             Field('greenFrom', 'integer'),
-                             Field('greenTo', 'integer'),
-                             Field('yellowFrom', 'integer'),
-                             Field('yellowTo', 'integer'),
-                             Field('redFrom', 'integer'),
-                             Field('redTo', 'integer'),
                 format='%(name)s')
 
-db.define_table('graphbox', Field('itemid', 'integer'),                                                        
+db.define_table('graphtype', Field('name', 'string'),
+                format='%(name)s')
+
+db.define_table('graphbox', Field('itemid', 'integer'),
+                            Field('name', 'string'),
+                            Field('graphtype', 'string'),
+                            Field('newgraphtype', db.graphtype),
+                            Field('itemprefix', 'string'),
+                            Field('maxNum', 'integer'),
+                            Field('greenFrom', 'integer'),
+                            Field('greenTo', 'integer'),
+                            Field('yellowFrom', 'integer'),
+                            Field('yellowTo', 'integer'),
+                            Field('redFrom', 'integer'),
+                            Field('redTo', 'integer'),
                             Field('dashboard', db.dashboard))

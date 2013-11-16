@@ -1,38 +1,27 @@
-{{response.menu=False}}
-{{response.logo=''}}
 {{extend 'layout.html'}}
 
-{{ block head }}
+<h1>{{=name}}</h1>
 
-	<script type='text/javascript'>
-		google.load('visualization', '1', {packages:['gauge']});
-		google.setOnLoadCallback(drawChart);
-
-		function drawChart() {
-			var data = google.visualization.arrayToDataTable([
-				['Label', 'Value'],
-				{{for graph in graphs:}}
-					["{{=graph['name']}}", {{=graph['value']}}],
-				{{pass}}
-			]);
-
-			var options = {
-				width: 640, height: 480,
-				redFrom: {{=dashboard['redFrom']}}, redTo: {{=dashboard['redTo']}},
-				yellowFrom: {{=dashboard['yellowFrom']}}, yellowTo: {{=dashboard['yellowTo']}},
-				minorTicks: 5, duration: 1300,
-				greenFrom: {{=dashboard['greenFrom']}}, greenTo: {{=dashboard['greenTo']}},
-				max: {{=dashboard['maxNum']}}
-			};
-
-			var chart = new google.visualization.Gauge(document.getElementById("chart_div"));
-			chart.draw(data, options);
-		}
-	</script>
-
-{{ end }}
-
-<h1>{{=dashboard['name']}}</h1>
-<div class="graphbox">
-	<div id="chart_div"></div>
+<div class="charts">
+	{{for item in items:}}
+	  <div class="graphbox">
+		  <h3>{{=item.graphbox.name}}</h3>
+			<div id="chartContainer{{=item.graphbox.id}}">Loading...</div>
+		</div>
+	{{pass}}
 </div>
+
+<script type="text/javascript">
+  {{for item in items:}}
+
+    {{if item.graphbox.newgraphtype.name == "angular":}}
+
+		  var myChart = new FusionCharts( "{{=URL('static/charts', 'AngularGauge.swf')}}",
+		                                  "myChartId{{=item.graphbox.id}}", "500", "280", "0" );
+		  myChart.setJSONUrl("{{=URL('charts', 'angular_gauge.json', vars={'id': item.graphbox.itemid, 'dashid': request.vars.dashid} )}}");
+		  myChart.render("chartContainer{{=item.graphbox.id}}");
+
+		{{pass}}
+
+	{{pass}}
+</script>

@@ -1,0 +1,22 @@
+{{extend 'layout.html'}}
+
+<h1>{{=name}}</h1>
+
+{{=items}}
+
+<div id="charts">
+	<div id="chartContainer1">Loading...</div>
+	<div id="chartContainer2">Loading...</div>
+</div>
+
+<script type="text/javascript">
+  var myChart = new FusionCharts( "{{=URL('static/charts', 'AngularGauge.swf')}}",
+                                  "myChartId1", "600", "280", "0" );
+  myChart.setJSONUrl("{{=URL('charts', 'angular_gauge.json', vars={'id': '23732', 'dashid': 1} )}}");
+  myChart.render("chartContainer1");
+
+  var myChart2 = new FusionCharts( "{{=URL('static/charts', 'AngularGauge.swf')}}",
+                                   "myChartId2", "600", "280", "0" );
+  myChart2.setJSONUrl("{{=URL('charts', 'angular_gauge.json', vars={'id': '23733', 'dashid': 1} )}}");
+  myChart2.render("chartContainer2");
+</script>
